@@ -2,4 +2,14 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="piel">#edaa8e</color>
+    <color name="azul">#233974</color>
+    <color name="celeste">#47cef9</color>
+    <color name="celeste2">#86c2df</color>
+    <color name="celesteOscuro">#3883b8</color>
+    <color name="rojoSuave">#ee3b63</color>
+    <color name="verdeSuave">#30cda0</color>
+    <color name="verdeOscuro">#63786a</color>
+    <color name="verdeAzulado">#16b6c1</color>
+
 </resources>
