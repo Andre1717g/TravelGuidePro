@@ -3,6 +3,16 @@
     <style name="Base.Theme.TravelGuidePro" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/piel</item>
+        <item name="colorOnPrimary">@color/azul</item>
+        <item name="colorSecondary">@color/celeste</item>
+        <item name="colorOnSecondary">@color/celeste2</item>
+        <item name="colorSurface">@color/celesteOscuro</item>
+        <item name="colorOnSurface">@color/rojoSuave</item>
+        <item name="colorPrimaryVariant">@color/verdeSuave</item>
+        <item name="colorOnPrimarySurface">@color/verdeOscuro</item>
+        <item name="colorSecondaryVariant">@color/verdeAzulado</item>
+
     </style>
 
     <style name="Theme.TravelGuidePro" parent="Base.Theme.TravelGuidePro" />
