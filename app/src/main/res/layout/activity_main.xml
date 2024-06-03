@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bienvenido a TravelGuide Pro!"
-        android:textSize="24sp"
-        android:textStyle="bold"
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.048" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/BNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_alignParentBottom="true"
+        android:background="#FFFFFFFF"
+        app:itemIconTint="#ee3b63"
+        android:paddingTop="8dp"
+        app:itemTextColor="@color/rojoSuave"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/menu_principal"
+        app:itemTextAppearanceActive="@style/BottomNavigationViewActiveText"
+        app:itemTextAppearanceInactive="@style/BottomNavigationViewInactiveText"
+        style="@style/BottomNavigationViewCenteredItem"/>
+
+</RelativeLayout>
