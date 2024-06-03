@@ -26,7 +26,7 @@
             android:orientation="vertical"
             android:layout_gravity="center_horizontal"
             android:padding="24dp"
-            android:background="@drawable/custom_edit">
+            android:background="@drawable/personalizado">
 
 
             <TextView
@@ -42,23 +42,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:id="@+id/signUpEmail"
-                android:background="@drawable/custom_edit"
+                android:background="@drawable/personalizado"
                 android:layout_marginTop="40dp"
                 android:padding="10dp"
                 android:hint="Email"
-                android:drawableLeft="@drawable/person"
+                android:drawableLeft="@drawable/email"
                 />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:id="@+id/signUpPassword"
-                android:background="@drawable/custom_edit"
+                android:background="@drawable/personalizado"
                 android:layout_marginTop="20dp"
                 android:padding="10dp"
                 android:inputType="textPassword"
                 android:hint="Password"
-                android:drawableLeft="@drawable/lock"
+                android:drawableLeft="@drawable/password"
                 />
 
             <Button
@@ -75,7 +75,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/loginRedirectText"
+                android:id="@+id/loginDireccion"
                 android:text="¿Ya tienes una cuenta? inicio de sesion "
                 android:layout_gravity="center"
                 android:padding="8dp"

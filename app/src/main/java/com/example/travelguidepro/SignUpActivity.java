@@ -26,7 +26,7 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth Auth;
     private EditText Email, Password;
     private Button SignUpButton;
-    private TextView loginRedirectText;
+    private TextView loginDireccion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class SignUpActivity extends AppCompatActivity {
         Email = findViewById(R.id.signUpEmail);
         Password = findViewById(R.id.signUpPassword);
         SignUpButton = findViewById(R.id.signUpButton);
-        loginRedirectText = findViewById(R.id.loginRedirectText);
+        loginDireccion = findViewById(R.id.loginDireccion);
 
         SignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +71,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        loginRedirectText.setOnClickListener(new View.OnClickListener() {
+        loginDireccion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(SignUpActivity.this, LoginActivity.class));

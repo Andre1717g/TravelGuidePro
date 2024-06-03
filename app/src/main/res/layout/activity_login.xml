@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/custom_edit"
+            android:background="@drawable/personalizado"
             android:orientation="vertical"
             android:padding="24dp">
 
@@ -41,8 +41,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="40dp"
-                android:background="@drawable/custom_edit"
-                android:drawableLeft="@drawable/person"
+                android:background="@drawable/personalizado"
+                android:drawableLeft="@drawable/email"
                 android:hint="Email"
                 android:padding="10dp" />
 
@@ -51,10 +51,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
-                android:inputType="textPassword"
-                android:background="@drawable/custom_edit"
-                android:drawableLeft="@drawable/lock"
+                android:background="@drawable/personalizado"
+                android:drawableLeft="@drawable/password"
                 android:hint="Password"
+                android:inputType="textPassword"
                 android:padding="10dp" />
 
             <Button
@@ -68,7 +68,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/signupRedirectText"
+                android:id="@+id/direccionRegistro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
