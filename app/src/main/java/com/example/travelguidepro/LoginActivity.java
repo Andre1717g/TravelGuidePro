@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 });
                     } else {
-                        password.setError("La contraseña no puede estar vacía ");
+                        password.setError("La contraseña no puede estar vacía");
                     }
                 } else if (emailText.isEmpty()) {
                     email.setError("El correo electrónico no puede estar vacío");

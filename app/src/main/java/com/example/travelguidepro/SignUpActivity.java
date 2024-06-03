@@ -46,7 +46,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String password = Password.getText().toString().trim();
 
                 if (email.isEmpty()) {
-                    Email.setError("el correo electrónico no puede estar vacío ");
+                    Email.setError("el correo electrónico no puede estar vacío");
                     return;
                 }
 
