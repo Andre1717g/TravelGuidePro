@@ -23,11 +23,17 @@ public class LoginActivity extends AppCompatActivity {
     private EditText email, password;
     private TextView DireccionRegistro;
     private Button loginButton;
-
+    private UsuarioSharedPreferences userSharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        userSharedPreferences = new UsuarioSharedPreferences(getApplicationContext());
+        Usuario currentUser = userSharedPreferences.getCurrentUser();
+        if (currentUser != null) {
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
 
         auth = FirebaseAuth.getInstance();
         email = findViewById(R.id.loginEmail);
@@ -48,6 +54,9 @@ public class LoginActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
+                                            String userId = auth.getCurrentUser().getUid();
+                                            String userEmail = auth.getCurrentUser().getEmail();
+                                            userSharedPreferences.saveCurrentUser(userId, userEmail);
                                             Toast.makeText(LoginActivity.this, "Usuario logueado correctamente", Toast.LENGTH_SHORT).show();
                                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                             finish();

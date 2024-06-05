@@ -27,11 +27,19 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText Email, Password;
     private Button SignUpButton;
     private TextView loginDireccion;
+    private UsuarioSharedPreferences userSharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        userSharedPreferences = new UsuarioSharedPreferences(getApplicationContext());
+        Usuario currentUser = userSharedPreferences.getCurrentUser();
+        if (currentUser != null) {
+            startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+            finish();
+        }
 
         Auth = FirebaseAuth.getInstance();
         Email = findViewById(R.id.signUpEmail);
