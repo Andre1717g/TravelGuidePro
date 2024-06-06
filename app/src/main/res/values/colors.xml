@@ -12,5 +12,7 @@
     <color name="verdeOscuro">#63786a</color>
     <color name="verdeAzulado">#16b6c1</color>
     <color name="amarillo">#FFFF00</color>
+    <color name="button_background_color">#FF5722</color> <!-- Naranja -->
+    <color name="button_text_color">#FFFFFF</color> <!-- Blanco -->
 
 </resources>
