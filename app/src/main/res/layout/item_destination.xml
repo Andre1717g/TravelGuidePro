@@ -32,14 +32,36 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"/>
 
-    <ImageButton
-        android:id="@+id/btnFavorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="#00FFFFFF"
-        android:contentDescription="@string/description_favorite_button"
-        android:src="@drawable/addfavorito" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp">
+
+        <ImageButton
+            android:id="@+id/btnFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:background="#00FFFFFF"
+            android:contentDescription="@string/description_favorite_button"
+            android:src="@drawable/addfavorito" />
+
+        <ImageButton
+            android:id="@+id/btnComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/btnFavorite"
+            android:layout_toRightOf="@id/btnFavorite"
+            android:layout_alignParentBottom="true"
+            android:background="#00FFFFFF"
+            android:contentDescription="@string/description_comment_button"
+            android:src="@drawable/comments" />
+
+    </RelativeLayout>
 
 
 

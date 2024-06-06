@@ -7,12 +7,22 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="648dp" />
+        android:layout_height="match_parent"
+        android:layout_above="@id/BNavigation"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="-1dp"
+        android:layout_marginBottom="1dp" >
 
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/BNavigation"

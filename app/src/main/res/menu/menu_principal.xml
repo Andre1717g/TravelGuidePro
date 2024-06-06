@@ -7,12 +7,7 @@
         android:icon="@drawable/inicio"
         />
 
-    <item
-        android:id="@+id/explorar"
-        android:title="Explorar"
-        android:paddingTop="10dp"
-        android:icon="@drawable/explorar"
-        />
+
 
     <item
         android:id="@+id/favoritos"
