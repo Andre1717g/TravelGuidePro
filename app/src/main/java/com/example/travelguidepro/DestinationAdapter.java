@@ -76,7 +76,7 @@ public class DestinationAdapter extends RecyclerView.Adapter<DestinationAdapter.
                 // Obtener el FragmentManager desde la actividad
                 FragmentManager fragmentManager = ((AppCompatActivity) mContext).getSupportFragmentManager();
                 // Crear una instancia del fragmento de comentarios
-                CommentFragment fragment = new CommentFragment();
+                CommentFragment fragment = new CommentFragment(destination.id);
                 // Iniciar la transacción para agregar el fragmento al contenedor
 
                 fragmentManager.beginTransaction()

@@ -10,9 +10,15 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +32,14 @@ public class CommentFragment extends Fragment {
     private List<Comment> commentList;
     private UsuarioSharedPreferences mSharedPreferences;
     private Usuario mCurrentUser;
+    private String currentID;
 
     public CommentFragment() {
         // Constructor público vacío requerido por Fragment
+    }
+
+    public CommentFragment(String id) {
+        this.currentID = id;
     }
 
     @Override
@@ -36,14 +47,29 @@ public class CommentFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_comment, container, false);
-
-
         editComment = rootView.findViewById(R.id.editComment);
         btnPublish = rootView.findViewById(R.id.btnPublish);
         recyclerViewComments = rootView.findViewById(R.id.recyclerViewComments);
-
-
         commentList = new ArrayList<>();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("comments").child(currentID);
+        mDatabase.addValueEventListener(new com.google.firebase.database.ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                commentList.clear();
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    Comment comment = postSnapshot.getValue(Comment.class);
+                    if (comment != null) {
+                       commentList.add(comment);
+                    }
+                }
+                commentAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+              Toast.makeText(getActivity(), "Error al cargar los comentarios", Toast.LENGTH_SHORT).show();
+            }
+        });
         commentAdapter = new CommentAdapter(commentList, new CommentAdapter.OnCommentDeleteListener() {
             @Override
             public void onCommentDelete(int position) {
@@ -84,57 +110,28 @@ public class CommentFragment extends Fragment {
                 getActivity().onBackPressed();
             }
         });
-
-
-        actualizarRecyclerView();
-
         return rootView;
     }
 
 
     private void guardarComentario(String commentText) {
-
         if (mCurrentUser != null) {
             String username = mCurrentUser.getUsername();
             Comment comment = new Comment(username, commentText);
-
-
-            mSharedPreferences.saveComment(comment);
-
-
-            actualizarRecyclerView();
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("comments").child(currentID);
+            mDatabase.child(comment.id).setValue(comment);
+            Toast.makeText(getActivity(), "Comentario publicado", Toast.LENGTH_SHORT).show();
+            editComment.setText("");
         } else {
-
             Toast.makeText(getActivity(), "Error: No se pudo obtener el usuario actual", Toast.LENGTH_SHORT).show();
         }
     }
 
-
-    private void actualizarRecyclerView() {
-
-        List<Comment> comments = mSharedPreferences.getNonDeletedComments();
-
-        commentList.clear();
-
-        commentList.addAll(comments);
-
-        commentAdapter.notifyDataSetChanged();
-    }
-
-
     private void eliminarComentario(int position) {
         try {
-
-            Comment comment = commentList.get(position);
-            mSharedPreferences.deleteComment(comment);
-
-
-            commentList.remove(position);
-
-
-            commentAdapter.notifyItemRemoved(position);
-
-            commentAdapter.notifyItemRangeChanged(position, commentList.size());
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("comments").child(currentID);
+            mDatabase.child(commentList.get(position).id).removeValue();
+            Toast.makeText(getActivity(), "Comentario eliminado", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Log.e("CommentFragment", "Error eliminando comentario", e);
         }

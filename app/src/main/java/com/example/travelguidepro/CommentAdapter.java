@@ -33,6 +33,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         holder.usernameTextView.setText(comment.getUsername());
         holder.commentTextView.setText(comment.getCommentText());
 
+        UsuarioSharedPreferences mSharedPreferences = new UsuarioSharedPreferences(holder.itemView.getContext());
+        Usuario mCurrentUser = mSharedPreferences.getCurrentUser();
+        if (mCurrentUser == null || !mCurrentUser.getUsername().equals(comment.getUsername())) {
+            holder.deleteButton.setVisibility(View.GONE);
+        }
+
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

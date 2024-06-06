@@ -1,16 +1,31 @@
 package com.example.travelguidepro;
 
 
+import java.util.UUID;
 
 public class Comment {
-    private String username;
-    private String commentText;
-    private boolean deleted;
+    public String id;
+    public String username;
+    public String commentText;
+
+    public Comment() {
+        // Constructor vacío requerido por Firebase
+    }
 
     public Comment(String username, String commentText) {
         this.username = username;
         this.commentText = commentText;
-        this.deleted = false;
+        this.id = UUID.randomUUID().toString();
+    }
+
+    public Comment(String id,String username, String commentText) {
+        this.username = username;
+        this.commentText = commentText;
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getUsername() {
@@ -19,13 +34,5 @@ public class Comment {
 
     public String getCommentText() {
         return commentText;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
     }
 }
