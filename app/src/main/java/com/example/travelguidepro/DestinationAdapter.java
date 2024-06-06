@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -78,12 +80,28 @@ public class DestinationAdapter extends RecyclerView.Adapter<DestinationAdapter.
                 // Iniciar la transacción para agregar el fragmento al contenedor
 
                 fragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, fragment)
+                        .replace(R.id.fragment_container_view, fragment)
                         .addToBackStack(null)  // Opcional: agregar el fragmento al back stack
                         .commit();
             }
         });
 
+        holder.btnFavorite.setOnClickListener(v ->{
+            // Agregar lógica para marcar como favorito
+            UsuarioSharedPreferences usuarioSharedPreferences = new UsuarioSharedPreferences(v.getContext());
+            Usuario usuario = usuarioSharedPreferences.getCurrentUser();
+            String idUser = usuario.getId();
+            String currentID = destination.id;
+
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("favorites").child(idUser);
+            if (holder.btnFavorite.isSelected()) {
+                databaseReference.child(String.valueOf(currentID)).removeValue();
+                holder.btnFavorite.setSelected(false);
+            } else {
+                databaseReference.child(String.valueOf(currentID)).setValue(destination);
+                holder.btnFavorite.setSelected(true);
+            }
+        });
     }
 
     public interface OnCommentClickListener {
@@ -109,6 +127,7 @@ public class DestinationAdapter extends RecyclerView.Adapter<DestinationAdapter.
         public ImageView destinationImage;
 
         public ImageButton btnComment; // Agrega el botón de comentarios
+        public ImageButton btnFavorite; // Agrega el botón de favoritos
 
         public DestinationViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -117,6 +136,7 @@ public class DestinationAdapter extends RecyclerView.Adapter<DestinationAdapter.
             destinationLocation = itemView.findViewById(R.id.destinationLocation);
             destinationImage = itemView.findViewById(R.id.destinationImage);
             btnComment = itemView.findViewById(R.id.btnComment);
+            btnFavorite = itemView.findViewById(R.id.btnFavorite);
         }
     }
 }

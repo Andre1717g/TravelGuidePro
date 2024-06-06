@@ -8,21 +8,13 @@
     tools:context=".MainActivity">
 
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
+    <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/fragment_container_view"
+        android:name="com.example.travelguidepro.HomeFragment"
         android:layout_above="@id/BNavigation"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="-1dp"
-        android:layout_marginBottom="1dp" >
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-    </FrameLayout>
+        tools:layout="@layout/fragment_home" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/BNavigation"
