@@ -1,6 +1,7 @@
 package com.example.travelguidepro;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,17 +34,22 @@ public class CommentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflar el diseño del fragmento
+
         View rootView = inflater.inflate(R.layout.fragment_comment, container, false);
 
-        // Inicializar los elementos de la interfaz de usuario
+
         editComment = rootView.findViewById(R.id.editComment);
         btnPublish = rootView.findViewById(R.id.btnPublish);
         recyclerViewComments = rootView.findViewById(R.id.recyclerViewComments);
 
-        // Configurar el RecyclerView
+
         commentList = new ArrayList<>();
-        commentAdapter = new CommentAdapter(commentList);
+        commentAdapter = new CommentAdapter(commentList, new CommentAdapter.OnCommentDeleteListener() {
+            @Override
+            public void onCommentDelete(int position) {
+                eliminarComentario(position);
+            }
+        });
         recyclerViewComments.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerViewComments.setAdapter(commentAdapter);
 
@@ -69,7 +75,7 @@ public class CommentFragment extends Fragment {
             }
         });
 
-        // Configurar OnClickListener para el botón de regreso
+
         ImageButton btnBack = rootView.findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,41 +85,58 @@ public class CommentFragment extends Fragment {
             }
         });
 
-        // Cargar los comentarios existentes
+
         actualizarRecyclerView();
 
         return rootView;
     }
 
-    // Método para guardar el comentario
-    // Método para guardar el comentario
+
     private void guardarComentario(String commentText) {
-        // Obtener el usuario actualmente conectado
+
         if (mCurrentUser != null) {
             String username = mCurrentUser.getUsername();
             Comment comment = new Comment(username, commentText);
 
-            // Guardar el comentario en SharedPreferences
+
             mSharedPreferences.saveComment(comment);
 
-            // Actualizar el RecyclerView para mostrar el comentario recién publicado
+
             actualizarRecyclerView();
         } else {
-            // Manejar el caso en que no haya un usuario conectado
+
             Toast.makeText(getActivity(), "Error: No se pudo obtener el usuario actual", Toast.LENGTH_SHORT).show();
         }
     }
 
 
-    // Método para actualizar el RecyclerView
     private void actualizarRecyclerView() {
-        // Obtener todos los comentarios guardados en SharedPreferences
-        List<Comment> comments = mSharedPreferences.getAllComments();
-        // Limpiar la lista actual de comentarios
+
+        List<Comment> comments = mSharedPreferences.getNonDeletedComments();
+
         commentList.clear();
-        // Añadir los comentarios obtenidos a la lista
+
         commentList.addAll(comments);
-        // Notificar al adaptador que los datos han cambiado
+
         commentAdapter.notifyDataSetChanged();
+    }
+
+
+    private void eliminarComentario(int position) {
+        try {
+
+            Comment comment = commentList.get(position);
+            mSharedPreferences.deleteComment(comment);
+
+
+            commentList.remove(position);
+
+
+            commentAdapter.notifyItemRemoved(position);
+
+            commentAdapter.notifyItemRangeChanged(position, commentList.size());
+        } catch (Exception e) {
+            Log.e("CommentFragment", "Error eliminando comentario", e);
+        }
     }
 }
